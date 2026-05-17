@@ -587,7 +587,7 @@ function FAQ() {
     },
     {
       q: "Can I get a refund?",
-      a: "Yes. 14-day money-back guarantee, no questions. Email us at hello@glowva.com from your account address and we'll refund within 3 business days.",
+      a: "Yes. 14-day money-back guarantee, no questions. Email us at support@glow-va.com from your account address and we'll refund within 3 business days.",
     },
   ];
   return (
