@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Mail, Sparkles } from "lucide-react";
 import { COMPANY } from "@/lib/company";
 import { BrandLockup } from "@/components/brand";
+import { PaymentLogos } from "@/components/payment-logos";
 
 export function Footer() {
   return (
@@ -60,7 +61,14 @@ export function Footer() {
           />
         </div>
 
-        <div className="mt-20 pt-8 border-t border-ivory/15 grid md:grid-cols-2 gap-6 text-[11.5px] tracking-[0.16em] uppercase text-ivory/55 leading-relaxed">
+        <div className="mt-16 pt-8 border-t border-ivory/15 flex flex-wrap items-center justify-between gap-5">
+          <div className="text-[11px] uppercase tracking-[0.18em] text-ivory/55 font-semibold">
+            We accept
+          </div>
+          <PaymentLogos />
+        </div>
+
+        <div className="mt-10 pt-8 border-t border-ivory/15 grid md:grid-cols-2 gap-6 text-[11.5px] tracking-[0.16em] uppercase text-ivory/55 leading-relaxed">
           <div>
             © {new Date().getFullYear()} {COMPANY.legalName} · DBA {COMPANY.dba} ·
             Registered in {COMPANY.state}, USA

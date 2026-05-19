@@ -5,6 +5,7 @@ import { ArrowLeft, Check, ShieldCheck, Sparkles } from "lucide-react";
 import { getCurrentUser } from "@/lib/auth";
 import { IMG } from "@/lib/images";
 import { getActivePurchase, isPlanKey, PLANS, type PlanKey } from "@/lib/plans";
+import { PaymentLogos } from "@/components/payment-logos";
 import { CheckoutForm } from "./checkout-form";
 
 export const metadata = { title: "Checkout" };
@@ -91,6 +92,11 @@ export default async function CheckoutPage({
             </p>
 
             <CheckoutForm plan={plan} email={user.email} />
+
+            <div className="mt-6 pt-5 border-t border-line flex items-center justify-between gap-4 flex-wrap">
+              <div className="label-cap">We accept</div>
+              <PaymentLogos />
+            </div>
 
             <p className="mt-6 text-[11px] text-ink-mute leading-relaxed">
               Demo environment — no real charge is made. Use any Luhn-valid
