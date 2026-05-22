@@ -98,13 +98,23 @@ export default async function CheckoutPage({
               <PaymentLogos />
             </div>
 
-            <p className="mt-6 text-[11px] text-ink-mute leading-relaxed">
-              Demo environment — no real charge is made. Use any Luhn-valid
-              test card (e.g.{" "}
-              <span className="font-mono">4242 4242 4242 4242</span>). In
-              production, payments are processed by our PCI-DSS Level 1
-              partner.
-            </p>
+            <div className="mt-6 rounded-xl border border-line bg-cream/40 px-4 py-3 text-[11.5px] text-ink-mute leading-relaxed">
+              <div className="font-medium text-plum mb-1.5">
+                Demo environment — no real charge is made.
+              </div>
+              <div>
+                Any of these test card numbers will be accepted with any future
+                expiration date and any 3-digit CVC:
+              </div>
+              <ul className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-0.5 font-mono text-[11px] text-ink-soft">
+                <li>Visa &middot; 4242 4242 4242 4242</li>
+                <li>Visa &middot; 4111 1111 1111 1111</li>
+                <li>Mastercard &middot; 5555 5555 5555 4444</li>
+                <li>Mastercard &middot; 2223 0031 2200 3222</li>
+                <li>Amex &middot; 3782 822463 10005</li>
+                <li>Discover &middot; 6011 1111 1111 1117</li>
+              </ul>
+            </div>
           </div>
 
           <aside className="space-y-5">

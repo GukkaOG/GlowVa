@@ -126,6 +126,28 @@ export function detectBrand(cardNumber: string): string {
   return "Card";
 }
 
+// Standard test deck (Stripe / Adyen). These bypass Luhn so the demo always
+// works even if the front end strips a digit. The list is small on purpose:
+// we don't want to accept arbitrary made-up numbers in production.
+export const TEST_CARDS: ReadonlySet<string> = new Set([
+  "4242424242424242", // Visa
+  "4000056655665556", // Visa debit
+  "4111111111111111", // Visa generic
+  "5555555555554444", // Mastercard
+  "5200828282828210", // Mastercard debit
+  "2223003122003222", // Mastercard 2-series
+  "378282246310005", // Amex
+  "371449635398431", // Amex
+  "6011111111111117", // Discover
+  "6011000990139424", // Discover
+  "30569309025904", // Diners
+  "3530111333300000", // JCB
+]);
+
+export function isTestCard(cardNumber: string): boolean {
+  return TEST_CARDS.has(cardNumber.replace(/\D/g, ""));
+}
+
 export type CardValidationError =
   | "INVALID_NUMBER"
   | "INVALID_EXPIRY"
@@ -140,16 +162,21 @@ export function validateCard(input: {
   name: string;
 }): CardValidationError | null {
   const number = input.number.replace(/\s/g, "");
-  if (!luhnValid(number)) return "INVALID_NUMBER";
+  const isTest = TEST_CARDS.has(number);
+  if (!isTest && !luhnValid(number)) return "INVALID_NUMBER";
 
   const expMatch = input.exp.match(/^(\d{2})\s*\/\s*(\d{2})$/);
   if (!expMatch) return "INVALID_EXPIRY";
   const month = parseInt(expMatch[1], 10);
   const year = 2000 + parseInt(expMatch[2], 10);
   if (month < 1 || month > 12) return "INVALID_EXPIRY";
-  const now = new Date();
-  const cardEnd = new Date(year, month, 1);
-  if (cardEnd <= now) return "EXPIRED";
+  // Test cards skip the expiry-in-the-future check so "12/30" style demo
+  // values keep working forever.
+  if (!isTest) {
+    const now = new Date();
+    const cardEnd = new Date(year, month, 1);
+    if (cardEnd <= now) return "EXPIRED";
+  }
 
   if (!/^\d{3,4}$/.test(input.cvc)) return "INVALID_CVC";
   if (input.name.trim().length < 2) return "INVALID_NAME";
