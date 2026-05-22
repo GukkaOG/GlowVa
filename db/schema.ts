@@ -10,6 +10,9 @@ import {
   index,
 } from "drizzle-orm/pg-core";
 
+// Shared with SkinRenew / AiNovaSkin — schema kept in sync (phone column
+// included even though GlowVa doesn't write to it, so drizzle push doesn't
+// drop it).
 export const users = pgTable(
   "users",
   {
@@ -18,6 +21,7 @@ export const users = pgTable(
     passwordHash: text("password_hash").notNull(),
     firstName: text("first_name"),
     lastName: text("last_name"),
+    phone: text("phone"),
     emailConfirmed: boolean("email_confirmed").notNull().default(false),
     marketingOptIn: boolean("marketing_opt_in").notNull().default(false),
     createdAt: timestamp("created_at", { withTimezone: true })
@@ -30,8 +34,10 @@ export const users = pgTable(
   })
 );
 
+// Namespaced (`glowva_subscriptions`) so it coexists with SkinRenew's
+// `subscriptions` and AiNovaSkin's `ainova_subscriptions` in the same Neon DB.
 export const subscriptions = pgTable(
-  "subscriptions",
+  "glowva_subscriptions",
   {
     id: serial("id").primaryKey(),
     userId: integer("user_id")
@@ -52,13 +58,15 @@ export const subscriptions = pgTable(
       .defaultNow(),
   },
   (t) => ({
-    userIdx: index("subscriptions_user_idx").on(t.userId),
-    statusIdx: index("subscriptions_status_idx").on(t.status),
+    userIdx: index("glowva_subscriptions_user_idx").on(t.userId),
+    statusIdx: index("glowva_subscriptions_status_idx").on(t.status),
   })
 );
 
+// Namespaced to keep GlowVa analyses isolated from AiNovaSkin's `analyses`
+// table even though the shape is identical.
 export const analyses = pgTable(
-  "analyses",
+  "glowva_analyses",
   {
     id: serial("id").primaryKey(),
     userId: integer("user_id")
@@ -72,13 +80,15 @@ export const analyses = pgTable(
       .defaultNow(),
   },
   (t) => ({
-    userIdx: index("analyses_user_idx").on(t.userId),
-    createdIdx: index("analyses_created_idx").on(t.createdAt),
+    userIdx: index("glowva_analyses_user_idx").on(t.userId),
+    createdIdx: index("glowva_analyses_created_idx").on(t.createdAt),
   })
 );
 
+// Namespaced for the same reason as analyses — keeps GlowVa chat history
+// separate from AiNovaSkin's `chat_messages`.
 export const chatMessages = pgTable(
-  "chat_messages",
+  "glowva_chat_messages",
   {
     id: serial("id").primaryKey(),
     userId: integer("user_id")
@@ -91,11 +101,12 @@ export const chatMessages = pgTable(
       .defaultNow(),
   },
   (t) => ({
-    userIdx: index("chat_messages_user_idx").on(t.userId),
-    createdIdx: index("chat_messages_created_idx").on(t.createdAt),
+    userIdx: index("glowva_chat_messages_user_idx").on(t.userId),
+    createdIdx: index("glowva_chat_messages_created_idx").on(t.createdAt),
   })
 );
 
+// Shared with SkinRenew / AiNovaSkin.
 export const passwordResets = pgTable(
   "password_resets",
   {
