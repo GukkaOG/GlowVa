@@ -35,8 +35,8 @@ export const PLANS: Record<PlanKey, Plan> = {
   glow: {
     key: "glow",
     name: "Glow",
-    priceCents: 1499,
-    priceLabel: "$14.99",
+    priceCents: 2499,
+    priceLabel: "$24.99",
     durationDays: 7,
     durationLabel: "7 days",
     tagline: "A week to find your rhythm.",

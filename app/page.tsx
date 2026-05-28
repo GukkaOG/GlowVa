@@ -583,7 +583,7 @@ function FAQ() {
     },
     {
       q: "What's the difference between the plans?",
-      a: "Spark ($2.99) is a 24-hour trial with one analysis and 10 chat messages. Glow ($14.99) gives you 7 days, 3 analyses and 100 messages. Radiance ($39.99) and Goddess ($69.99) are 30 days with unlimited everything — Goddess just gets priority processing and a weekly deep-dive.",
+      a: "Spark ($2.99) is a 24-hour trial with one analysis and 10 chat messages. Glow ($24.99) gives you 7 days, 3 analyses and 100 messages. Radiance ($39.99) and Goddess ($69.99) are 30 days with unlimited everything — Goddess just gets priority processing and a weekly deep-dive.",
     },
     {
       q: "Can I get a refund?",

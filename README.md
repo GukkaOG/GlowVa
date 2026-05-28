@@ -33,6 +33,6 @@ Open http://localhost:3000.
 ## Pricing tiers
 
 - Spark — $2.99 / 24h
-- Glow — $14.99 / 7 days
+- Glow — $24.99 / 7 days
 - Radiance — $39.99 / 30 days
 - Goddess — $69.99 / 30 days, full lab access
